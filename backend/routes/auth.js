@@ -8,7 +8,7 @@ const { body, validationResult } = require('express-validator');
 const JWT_SECRET = "paawanisagoodb$oy";
 
 
-// create a user using POST : {/api/auth} -> ofc it doesn't require authetication
+// create a user using POST : {/api/auth/createuser} -> ofc it doesn't require authetication
 // /api/auth/createuser -> no login rquired at this api
 router.post('/createuser', [
     // validating entered deatils
@@ -28,12 +28,12 @@ router.post('/createuser', [
         if (user) {
             return res.status(400).send("soory, this email already in use")
         }
-        
+
         // using bcrypt library for generating salt and using hash function of bcrypt package  to generate hash
         // await function is used just to make sure that after promise resolves then only this will go to next line
         const salt = await bcrypt.genSalt(10);
         const securedPassword = await bcrypt.hash(req.body.password, salt);
-        
+
         // creating validate user
         let newuser = await User.create({
             name: req.body.name,
@@ -41,11 +41,62 @@ router.post('/createuser', [
             email: req.body.email
         })
 
-        res.json(newuser);
+        // after new user has enteres all things then jwt will generate the auth-token 
+        const data = {
+            user: {
+                id: newuser.id,
+            }
+        }
+
+        const authToken = jwt.sign(data, JWT_SECRET);
+        res.json({ authToken });
 
     } catch (error) {
         console.error(error.message);
         res.status(500).send("sone error occured");
+    }
+})
+
+// Authenticate a user using POST : {/api/auth/login} -> ofc it doesn't require authetication
+
+router.post('/login', [
+    // validating email and password entered by the user
+    body('email', 'Please Enter a valid email').isEmail(),
+    body('password', 'password cnanot be blank').exists()
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    // destructuring email and password entered by the user 
+    const { email, password } = req.body;
+
+    try {
+        let user = await User.findOne({email: email });
+        if (!user) {
+            return res.status(400).send({ error: "Please try to login with correct credentials" });
+        }
+
+        // comparing password corresponding to the valid user(who has entered the correct email)
+        // console.log(user.password);
+        const passwordCompare = await bcrypt.compare(password, user.password);
+        if (!passwordCompare) {
+            return res.status(400).send({ error: "Please try to login with correct credentials" });
+        }
+
+        const data = {
+            user: {
+                id: user.id,
+            }
+        }
+
+        const authToken = jwt.sign(data, JWT_SECRET);
+        res.json({ authToken });
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal server error");
     }
 })
 
