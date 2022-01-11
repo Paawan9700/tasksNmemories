@@ -54,7 +54,7 @@ router.post('/createuser', [
 
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("sone error occured");
+        res.status(500).send("Internal server error");
     }
 })
 
@@ -105,6 +105,7 @@ router.post('/login', [
 // fetch user is a function (middleware) which uses auth-token to verify already existing user so 
 // that again and again login should not be required (auth-token presnet in user's browser)
 
+// using middle ware just decoding (fetching) the user details
 router.post('/getuser', fetchuser, async (req, res) => {
     try {
         const userID = req.user.id;
