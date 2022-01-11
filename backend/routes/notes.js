@@ -50,5 +50,37 @@ router.post('/addnote', fetchuser, [
     }
 });
 
+//  ROUTE 3 : update the required note : {/api/notes/updatenote} -> ofc it require authetication
+router.put('/updatenote/:id', fetchuser, async (req, res) => {
+    const { title, description, tag } = req.body;
+
+    // creating a newNote object
+    const newNote = {};
+    if (title) {
+        newNote.title = title
+    }
+    if (description) {
+        newNote.description = description;
+    }
+    if (tag) {
+        newNote.tag = tag;
+    }
+
+    // what if, the note any person want to update does not exists
+    let note = await Note.findById(req.params.id);
+    if (!note) {
+        return res.status(404).send("not found");
+    }
+
+    // now checking the user updating only his/her notes
+    if (req.user.id !== note.user.toString()) {
+        return res.status(401).send("not allowed");
+    }
+
+    // find the note to be updated and update it
+    const updatedNote = await Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
+    note = updatedNote;
+    res.json(note);
+});
 
 module.exports = router;
