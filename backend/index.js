@@ -1,10 +1,12 @@
 const connectTomongo = require('./db');
 const express = require('express');
+var cors = require('cors')
 
 connectTomongo();
 const app = express();
 // middle ware
 app.use(express.json());
+app.use(cors())
 
 const port = 5000;
 
