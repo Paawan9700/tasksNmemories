@@ -5,9 +5,10 @@ export const Noteitem = (props) => {
     const context = useContext(NoteContext);
     const { deleteNote } = context;
 
-    const { _id, title, description, tag } = props.note;
+    const { title, description, tag } = props.note;
+    const {note, updateNote} = props;
     const handleDelete = () => {
-        deleteNote(_id);
+        deleteNote(note._id);
     }
 
     return (
@@ -20,7 +21,7 @@ export const Noteitem = (props) => {
                     <h5 className="card-title">{description}</h5>
                     <p className="card-text">{tag}</p>
                     <i className="fas fa-trash-alt mx-2" onClick={handleDelete}></i>
-                    <i className="fas fa-edit mx-2"></i>
+                    <i className="fas fa-edit mx-2" onClick={() => {updateNote(note)}}></i>
                 </div>
             </div>
         </div>

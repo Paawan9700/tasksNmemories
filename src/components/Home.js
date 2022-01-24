@@ -7,7 +7,10 @@ export const Home = () => {
 
     return (
         <div>
+             {/* add note component for user to add new note into their particular collection */}
             <AddNote />
+
+             {/* displaying all notes specific to the particular notes */}
             <Notes />
         </div>
     )

@@ -42,10 +42,12 @@ const NoteState = (props) => {
         const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
                 'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZDU0OGU1MGI5Mjc0YzJmYWVmNWEwIn0sImlhdCI6MTY0MTkwOTQ0NX0.cR0cHdsJ582S9d2ryx05DUqg_6qvISI7P7qcf0s9KQ4"
             },
         });
+
+        const json = await response.json();
+        console.log(json);
 
 
         // logic to delete the note of a partcular user at the client side is here:
@@ -80,7 +82,7 @@ const NoteState = (props) => {
 
     return (
         // context api basic syntax
-        <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote , getNotes}}>
+        <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
             {props.children}
         </NoteContext.Provider>
     )
