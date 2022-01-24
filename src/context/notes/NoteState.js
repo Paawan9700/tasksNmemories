@@ -3,6 +3,8 @@ import NoteContext from "./NoteContext";
 
 const NoteState = (props) => {
     const host = "http://localhost:5000";
+    // as it is not allowing any api to fetch due to cors policy , so we need to install cors-policy package of express
+    
     let initialnotes = [];
     const [notes, setnotes] = useState(initialnotes)
     // fetching all notes
@@ -66,6 +68,8 @@ const NoteState = (props) => {
                 'Content-Type': 'application/json',
                 'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZDU0OGU1MGI5Mjc0YzJmYWVmNWEwIn0sImlhdCI6MTY0MTkwOTQ0NX0.cR0cHdsJ582S9d2ryx05DUqg_6qvISI7P7qcf0s9KQ4"
             },
+
+            // this basiclly means {title : title, description : description, tag : tag}
             body: JSON.stringify({ title, description, tag })
         });
 
