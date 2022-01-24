@@ -51,7 +51,7 @@ const NoteState = (props) => {
 
 
         // logic to delete the note of a partcular user at the client side is here:
-        console.log("deleting a note with id" + id);
+        console.log("deleting a note with id " + id);
         const newNote = notes.filter((note) => { return (note._id !== id) })
         setnotes(newNote);
     }
@@ -59,6 +59,7 @@ const NoteState = (props) => {
     // edit a note
     const editNote = async (id, title, description, tag) => {
         // API call:
+        // making sure that all changes should also reflect in the backend also
         const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
             method: 'PUT',
             headers: {
@@ -70,6 +71,8 @@ const NoteState = (props) => {
 
 
         // logic to edit the notes of a particular user at the client side is here:
+        // basically as soon as i got the id of the particlar note which the user wanna delete
+        // then corressponding to that id all (title, description, tag) are changed.
         for (let index = 0; index < notes.length; index++) {
             const element = notes[index];
             if (element._id === id) {

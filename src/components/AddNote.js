@@ -9,7 +9,7 @@ const AddNote = () => {
     const { addNote } = context;
 
     // defining the initial states of the notes
-    const [note, setnote] = useState({ title: "", description: "", tag:"" })
+    const [note, setnote] = useState({ title: "", description: "", tag: "" })
 
     // handling the event when user is typing on the givrn form
     const handleNote = (event) => {
@@ -29,7 +29,7 @@ const AddNote = () => {
         <div className="container my-5">
             <h2>Add a Note</h2>
             <form>
-                <div className="mb-3">lete React Course in Hindi #6
+                <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input type="text" className="form-control" id="title" name='title' onChange={handleChange} />
                 </div>
