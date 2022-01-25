@@ -33,9 +33,9 @@ const NoteState = (props) => {
             body: JSON.stringify(newNote)
         });
 
-        // logic to add the note of a partcular user at the client side is here:
-        console.log("adding a new note particular to this user...");
-        setnotes(notes.concat(newNote));
+        const note = await response.json();
+        // logic to add the note of a partcular user at the client side is here..
+        setnotes(notes.concat(note));
     }
 
     // deleting a note
@@ -73,6 +73,8 @@ const NoteState = (props) => {
             body: JSON.stringify({ title, description, tag })
         });
 
+        const json = await response.json();
+        console.log(json);
         // in react you update directly, you have to make a copy 
         const newNotes = JSON.parse(JSON.stringify(notes))
 

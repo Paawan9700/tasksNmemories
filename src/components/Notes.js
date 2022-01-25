@@ -6,7 +6,6 @@ import { Noteitem } from './Noteitem';
 export const Notes = () => {
     const context = useContext(NoteContext);
     const { notes, getNotes, editNote } = context;
-    console.log(notes);
 
     // component didmount
     useEffect(() => {
@@ -49,7 +48,7 @@ export const Notes = () => {
                 Launch demo modal
             </button>
 
-
+            {/* i have to make sure for the input validation */}
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -75,7 +74,7 @@ export const Notes = () => {
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button onClick={handleClick} type="button" className="btn btn-primary">Update Note</button>
+                            <button disabled={note.title.length < 3 || note.description.length < 5} onClick={handleClick} type="button" className="btn btn-primary">Update Note</button>
                         </div>
                     </div>
                 </div>
@@ -83,6 +82,10 @@ export const Notes = () => {
 
             <div className="container my-5">
                 <h2>Your Notes</h2>
+                {/* is there are no notes of the user to display  */}
+                <div className="container">
+                    {notes.length === 0 && "No Notes to display"}
+                </div>
                 {notes.map((note) => {
                     return <Noteitem key={note._id} updatenote={updateNote} note={note} />;
                 })}
