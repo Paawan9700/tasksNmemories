@@ -28,8 +28,8 @@ const Signup = (props) => {
     if (json.success === true) {
       // redirect the user
       localStorage.setItem('token', json.authToken)
-      navigate('/');
       props.showAlert("Account successfully created", "success")
+      navigate('/');
 
     } else {
       props.showAlert("Invalid Credentials", "danger")
@@ -40,7 +40,8 @@ const Signup = (props) => {
     setcredentials({ ...credentials, [event.target.name]: event.target.value })
   }
 
-  return <div>
+  return <div className='mt-3'>
+    <h2>Wanted a new world.. ?</h2>
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="name" className="form-label">Name</label>
