@@ -17,9 +17,10 @@ router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('password', 'Min Password should be of 5 length').isLength({ min: 5 }),
 ], async (req, res) => {
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
 
     // but before that check that user with this email exists already
@@ -50,7 +51,8 @@ router.post('/createuser', [
         }
 
         const authToken = jwt.sign(data, JWT_SECRET);
-        res.json({ authToken });
+        success = true;
+        res.json({ success, authToken });
 
     } catch (error) {
         console.error(error.message);
@@ -69,7 +71,7 @@ router.post('/login', [
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
 
     // destructuring email and password entered by the user 
