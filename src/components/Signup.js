@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const Signup = (props) => {
   const navigate = useNavigate();
   const [credentials, setcredentials] = useState({ name: '', email: '', password: '', confirmpassword: '' });
   const host = "http://localhost:5000";
@@ -29,9 +29,10 @@ const Signup = () => {
       // redirect the user
       localStorage.setItem('token', json.authToken)
       navigate('/');
+      props.showAlert("Account successfully created", "success")
 
     } else {
-      alert('invalid credentials');
+      props.showAlert("Invalid Credentials", "danger")
     }
   }
 
@@ -43,7 +44,7 @@ const Signup = () => {
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="name" className="form-label">Name</label>
-        <input type="text" className="form-control" id="name" name='name' value={credentials.name} onChange={handleChange} aria-describedby="emailHelp" minLength={3} required/>
+        <input type="text" className="form-control" id="name" name='name' value={credentials.name} onChange={handleChange} aria-describedby="emailHelp" minLength={3} required />
       </div>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">Email address</label>
@@ -52,7 +53,7 @@ const Signup = () => {
       </div>
       <div className="mb-3">
         <label htmlFor="password" className="form-label">Password</label>
-        <input type="password" className="form-control" id="password" name='password' value={credentials.password} onChange={handleChange} minLength={5} required/>
+        <input type="password" className="form-control" id="password" name='password' value={credentials.password} onChange={handleChange} minLength={5} required />
       </div>
       <div className="mb-3">
         <label htmlFor="confirmpassword" className="form-label">Confirm Password</label>

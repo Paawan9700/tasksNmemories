@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import NoteContext from '../context/notes/NoteContext';
 import { Noteitem } from './Noteitem';
 
-export const Notes = () => {
+export const Notes = (props) => {
     const context = useContext(NoteContext);
     const { notes, getNotes, editNote } = context;
 
@@ -20,6 +20,7 @@ export const Notes = () => {
     const handleClick = (event) => {
         event.preventDefault(); //(so that page doesn't get reload)
         editNote(note._id, note.title, note.description, note.tag);
+        props.showAlert("Note Updated Successfully", "success")
         refClose.current.click();
     }
 
@@ -34,6 +35,7 @@ export const Notes = () => {
         ref.current.click();
 
         // baiclly the note which is being clicked to be edited is this currNote
+
         setnote(currNote);
     }
 
@@ -87,7 +89,7 @@ export const Notes = () => {
                     {notes.length === 0 && "No Notes to display"}
                 </div>
                 {notes.map((note) => {
-                    return <Noteitem key={note._id} updatenote={updateNote} note={note} />;
+                    return <Noteitem key={note._id} updatenote={updateNote} note={note} showAlert={props.showAlert} />;
                 })}
             </div>
         </div>

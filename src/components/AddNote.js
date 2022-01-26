@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import NoteContext from '../context/notes/NoteContext';
 
-const AddNote = () => {
+const AddNote = (props) => {
     // using context api to access addNote function directly into this file
     const context = useContext(NoteContext);
     // taking the addNote function from the context API and 
@@ -16,6 +16,7 @@ const AddNote = () => {
         event.preventDefault(); //(so that page doesn't get reload)
         // sending the recently added note by the user
         addNote(note);
+        props.showAlert("Note added Successfully", "success")
         setnote({ title: "", description: "", tag: "" });
     }
 

@@ -11,6 +11,7 @@ export const Noteitem = (props) => {
     // taking props from notes.js
     const { note, updatenote } = props;
     const handleDelete = () => {
+        props.showAlert("Note Deleted Successfully", "success")
         deleteNote(note._id);
     }
 
