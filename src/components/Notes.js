@@ -89,7 +89,7 @@ export const Notes = (props) => {
             </div>
 
             <div className="container my-5">
-                <h2>Your Notes</h2>
+                <h2>Your Notes and Tasks</h2>
                 {/* is there are no notes of the user to display  */}
                 <div className="container">
                     {notes.length === 0 && "No Notes to display"}

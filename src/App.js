@@ -12,6 +12,8 @@ import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
 import Login from './components/Login'
 import Signup from './components/Signup'
+import UserTasks from './components/UserTasks';
+import UserMemory from './components/UserMemory';
 
 function App() {
   const [alert, setalert] = useState({})
@@ -39,6 +41,8 @@ function App() {
               <Route exact path='/about' element={<About />} />
               <Route exact path='/login' element={<Login showAlert={showAlert} />} />
               <Route exact path='/signup' element={<Signup showAlert={showAlert} />} />
+              <Route exact path='/YourTasks' element={<UserTasks showAlert={showAlert} />} />
+              <Route exact path='/YourMemories' element={<UserMemory showAlert={showAlert} />} />
             </Routes>
           </div>
         </Router>

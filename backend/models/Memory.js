@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
 
 const MemorySchema = new mongoose.Schema({
-    user : {
-        type : mongoose.Schema.Types.ObjectId, 
-        ref : "User"
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
-    title : {
-        type : String, 
-        required : true
-    }, 
-    description : {
-        type : String, 
-        required : true, 
-    }, 
-    tag : {
-        type : String, 
-        default : "General"
-    }, 
-    Date : {
-        type : Date, 
-        default : Date.now
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: String,
+        required = true,
+    },
+    Date: {
+        type: Date,
+        default: Date.now
     }
 })
 

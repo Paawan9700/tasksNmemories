@@ -92,7 +92,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
 });
 
 
-//  ROUTE 1 : deleting the  notes : {/api/notes/deletenote} -> ofc it require authetication
+//  ROUTE 4 : deleting the  notes : {/api/notes/deletenote} -> ofc it require authetication
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {
 
     try {
