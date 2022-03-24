@@ -6,14 +6,15 @@ const Login = (props) => {
   const [credentials, setcredentials] = useState({ email: '', password: '' });
   let navigate = useNavigate();
 
-  const host = "http://localhost:5000";
+  // const host = "http://localhost:5000";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // i can also use context api for this function 
-    const response = await fetch(`${host}/api/auth/login`, {
+    const response = await fetch(`http://localhost:5000/api/auth/login`, {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json'
       },
